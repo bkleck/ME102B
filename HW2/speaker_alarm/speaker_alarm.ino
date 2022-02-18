@@ -5,7 +5,6 @@
 #define SPKR_CH 0
 #define REST 0
 
-int tempo = 200;  // change this to make the song slower or faster. The larger the faster
 const int timer = 5000; // only play alarm for 5s
 
 // notes of the moledy followed by the duration.
@@ -36,7 +35,9 @@ int melody[] = {
 
 int divider = 0, noteDuration = 0;
 
-void Alarm(int melody[], int divider, int noteDuration, int tempo) {
+void Alarm(int melody[]) {
+  int divider = 0, noteDuration = 0;
+  int tempo = 200;
   int notes = sizeof(melody) / sizeof(melody[0]) / 2;
   int wholenote = (60000 * 4) / tempo;
 
@@ -56,16 +57,9 @@ void Alarm(int melody[], int divider, int noteDuration, int tempo) {
 }
 
 void setup() {
-  Alarm(melody, divider, noteDuration, tempo);
+  Alarm(melody);
 }
 
 void loop() {
-  Alarm(melody, divider, noteDuration, tempo);
-  int starttime = millis();
-  int endtime = starttime;
-  while ((endtime - starttime) <= timer)
-  {
-    endtime = millis();
-  }
-  exit(0);
+
 }
