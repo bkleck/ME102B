@@ -1,5 +1,5 @@
-#define trigPin 27
-#define echoPin 33
+#define trigPin 5
+#define echoPin 18
 
 float duration, distance;
 

@@ -4,7 +4,7 @@
 int buttonState;             // the current reading from the input pin
 int lastButtonState = LOW;   // the previous reading from the input pin
 unsigned long lastDebounceTime = 0;
-unsigned long debounceDelay = 1000;
+unsigned long debounceDelay = 100;
 
 void IRAM_ATTR isr() {  // the function to be called when interrupt is triggered
   Serial.println("Pressed!");
@@ -18,6 +18,7 @@ void setup() {
 
 void loop() {
   int reading = digitalRead(BTN);
+  Serial.println(reading);
 
   // check to see if you just pressed the button
   // (i.e. the input went from LOW to HIGH), and you've waited long enough
@@ -33,15 +34,15 @@ void loop() {
     // whatever the reading is at, it's been there for longer than the debounce
     // delay, so take it as the actual current state:
 
-    // if the button state has changed:
+    // only toggle the LED if the new button state is HIGH
     if (reading != buttonState) {
       buttonState = reading;
 
-      // only toggle the LED if the new button state is HIGH
       if (buttonState == HIGH) {
-        attachInterrupt(BTN, isr, RISING);
+        Serial.println("Pressed");
       }
     }
+    lastButtonState = reading;
   }
-  lastButtonState = reading;
+
 }
